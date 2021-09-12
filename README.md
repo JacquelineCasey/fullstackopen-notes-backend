@@ -1,7 +1,12 @@
 
+# Backend for notes
+
 This project was created by answering the questions of `npm init`.
 
 It can be run using `npm start`, which we had to define ourselves as `node index.js`.
+
+This README file stores notes that I take as I follow the course. It is very
+possible that some are out of date, as the project has changed over time.
 
 ## HTTP Server
 
@@ -202,3 +207,5 @@ Remember, commiting is not the same as pushing. Remember to push changes to gith
 through the (...).
 
 Edit: I configured it so that commit immediately causes a push now.
+
+The main trick was `git remote add origin ...`
