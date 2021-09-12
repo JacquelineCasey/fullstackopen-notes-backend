@@ -74,20 +74,24 @@ The url for the entire collection of notes is `www.example.com/api/notes`.
 
 We can execute operations of resources, by using a HTTP verb.
 
-| URL      | verb   | functionality                                    |
-|:---------|:-------|:-------------------------------------------------|
-| notes/10 | GET    | Fetches one resource                             |
-| notes    | GET    | Fetches a collection of resources                |
-| notes    | POST   | Creates a new resource based on request data     |
-| notes/10 | DELETE | Removes this resource                            |
-| notes/10 | PUT    | Replaces the resource with request data          |
-| notes/10 | PATCH  | Replaces parts of the resource with request data |
+| URL      | verb   | functionality                                    | Notes      |
+|:---------|:-------|:-------------------------------------------------|:-----------|
+| notes/10 | GET    | Fetches one resource                             | Safe       |
+| notes    | GET    | Fetches a collection of resources                | Safe       |
+| notes    | POST   | Creates a new resource based on request data     |            |
+| notes/10 | DELETE | Removes this resource                            | Idempotent |
+| notes/10 | PUT    | Replaces the resource with request data          | Idempotent |
+| notes/10 | PATCH  | Replaces parts of the resource with request data | Idempotent |
 
 This is roughly what REST calls a 'uniform interface'. It means it is possible
 for systems to cooperate.
 
 Again, there is some philosophical disagreement over if this is *really* REST. Who
 cares!
+
+A method is safe if it creates no side effects. A method is idempotent if multiple
+sends of the same message have the same result. These are only reccomendations, but
+RESTful API's follow them.
 
 ## Express Route Parameters
 
@@ -161,3 +165,18 @@ Note that we do have to return in this case, even after we form the response.
 
 It is best to generate timestamps on the server instead of the browser (can't be
 trusted).
+
+## Middleware
+
+Express's JSON-Parser is middleware. They are functions that can be used to handle
+the request and response objects. You can use multiple middlewares. They are executed
+one by one in the order the were added to the app.
+
+You can write your own middleware. It takes in request, response, and next, and
+has to call next() at some point to yield control to the next middleware. See
+`requestLogger`.
+
+You should define most middleware before your endpoints, so that they will all
+be called before each endpoint. You can define them after endpoints, in which 
+case they will only trigger if no route handles the request. (Or maybe only
+applying to some routes???)

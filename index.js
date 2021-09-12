@@ -3,7 +3,18 @@ const express = require('express'); // Imports may be objects or just functions.
 const app = express(); // Create an express application
 
 
+/* Middleware */
 app.use(express.json()); // We will need this json parser later.
+
+const requestLogger = (request, response, next) => {
+    console.log('Method:', request.method);
+    console.log('Path:  ', request.path);
+    console.log('Body:  ', request.body); // From json-parser
+    console.log('---');
+    next();
+};
+
+app.use(requestLogger);
 
 let notes = [
     {
@@ -88,6 +99,13 @@ app.post('/api/notes', (request, response) => {
   
     response.json(note);
 });
+
+// More middleware, only fires if none of the above routes fire. Ignores next()
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' });
+};
+  
+app.use(unknownEndpoint);
 
 // Fire up the app, now that it has been fully defined.
 const PORT = 3001
