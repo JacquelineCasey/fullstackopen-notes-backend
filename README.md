@@ -180,3 +180,15 @@ You should define most middleware before your endpoints, so that they will all
 be called before each endpoint. You can define them after endpoints, in which 
 case they will only trigger if no route handles the request. (Or maybe only
 applying to some routes???)
+
+## CORS
+
+(Cross Origin Resource Sharing). Browsers can only communicate to OTHER servers
+in a limited way (ie, fonts, videos, etc).
+
+We use the cors middleware here in order to get around this (allow requests from
+other origins (ie localhost:3000, our frontend)).
+
+## Heroku
+
+Use `Procfile` to tell Heroku how to use the app.
