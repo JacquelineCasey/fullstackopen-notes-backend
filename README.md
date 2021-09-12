@@ -192,3 +192,6 @@ other origins (ie localhost:3000, our frontend)).
 ## Heroku
 
 Use `Procfile` to tell Heroku how to use the app.
+
+The tutorial talks about how to use the Heroku CLI, but I am more comfortable
+going through github + the Heroku web client.

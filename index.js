@@ -112,7 +112,8 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint);
 
 // Fire up the app, now that it has been fully defined.
-const PORT = 3001
+const PORT = process.env.PORT || 3001; // Use 3001 only if the env variable PORT is undefined.
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
     
