@@ -195,3 +195,10 @@ Use `Procfile` to tell Heroku how to use the app.
 
 The tutorial talks about how to use the Heroku CLI, but I am more comfortable
 going through github + the Heroku web client.
+
+## VSCODE Github notes
+
+Remember, commiting is not the same as pushing. Remember to push changes to github
+through the (...).
+
+Edit: I configured it so that commit immediately causes a push now.
