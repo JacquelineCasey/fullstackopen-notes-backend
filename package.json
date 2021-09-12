@@ -9,7 +9,7 @@
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "build:ui": "rm -rf build && cd ../../Part2/part2 && npm run build && cp -r build ../../Part3/backend",
     "deploy": "git push",
-    "deploy:full": "npm run build:ui && git add . && git commit -m \"deployed app via npm run deploy:full\" && npm run deploy"
+    "deploy:full": "npm run build:ui && git add . && git commit -m \"deployed app automatically via npm run deploy:full\" && npm run deploy"
   },
   "author": "Jack Casey",
   "license": "ISC",
