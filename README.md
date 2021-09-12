@@ -209,3 +209,11 @@ through the (...).
 Edit: I configured it so that commit immediately causes a push now.
 
 The main trick was `git remote add origin ...`
+
+## Serving the frontend
+
+The frontend build has been copied over here. We can use middleware to serve it.
+`app.use(express.static('build'));`
+
+You can view the frontend during development now! You have to develop it in another
+directory though, but we can use it here while developing the backend.

@@ -8,7 +8,11 @@ const app = express(); // Create an express application
 /* Middleware */
 app.use(express.json()); // We will need this json parser later.
 
-app.use(cors()); // We want to allow for cross origin resource sharing. 
+/* Express now checks build/ for matching files to serve first. Navigating to
+ * the homepage serves index.html, and the entire frontend with it. */
+app.use(express.static('build')); 
+
+app.use(cors()); // We want to allow for cross origin resource sharing. ()
 
 const requestLogger = (request, response, next) => {
     console.log('Method:', request.method);
