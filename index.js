@@ -1,10 +1,14 @@
 
 const express = require('express'); // Imports may be objects or just functions.
-const app = express(); // Create an express application
+const cors = require('cors');
 
+
+const app = express(); // Create an express application
 
 /* Middleware */
 app.use(express.json()); // We will need this json parser later.
+
+app.use(cors()); // We want to allow for cross origin resource sharing. 
 
 const requestLogger = (request, response, next) => {
     console.log('Method:', request.method);
