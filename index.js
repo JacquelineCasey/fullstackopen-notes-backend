@@ -3,6 +3,8 @@ const express = require('express'); // Imports may be objects or just functions.
 const app = express(); // Create an express application
 
 
+app.use(express.json()); // We will need this json parser later.
+
 let notes = [
     {
         id: 1,
@@ -54,6 +56,37 @@ app.delete('/api/notes/:id', (request, response) => {
     notes = notes.filter(note => note.id !== id);
 
     response.status(204).end();
+});
+
+const generateId = () => {
+    // Math.max() requires this spread syntax, does not like arrays. 
+    // *** This will fail for large arrays *** Use reduce instead.
+    const maxId = notes.length > 0
+      ? Math.max(...notes.map(n => n.id)) 
+      : 0;
+    return maxId + 1;
+}
+
+// Handle POST request sent to `api/notes`
+app.post('/api/notes', (request, response) => {
+    const body = request.body;
+
+    if (!body.content) {
+        return response.status(400).json({ 
+            error: 'content missing'
+        });
+    }
+  
+    const note = {
+        content: body.content,
+        important: body.important || false,
+        date: new Date(), // (*)
+        id: generateId(),
+    }
+  
+    notes = notes.concat(note);
+  
+    response.json(note);
 });
 
 // Fire up the app, now that it has been fully defined.

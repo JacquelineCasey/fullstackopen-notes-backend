@@ -133,6 +133,31 @@ Alternatively, use the VSCODE REST Client extension
 Make a folder called `requests`. Add files with the `.rest` extension. Type out
 the request `GET http://...` and click the text that pops up.
 
+PS: You can put multiple requests in a file wiht `###` seperators!
+
 IntelliJ WebStorm has a similar feature builtin.
 
 Do note that in its current state, all notes are restored when the Express app is relaunched (even by nodemon).
+
+## Parsing received JSON and adding it
+
+Express has a json parser, but you have to tell your app that you want to use it.
+`app.use(express.json())`
+
+The data can be found in `request.body`. If the app has been instructed to use
+the JSON parser, it automatically parses the data upon receiving it, and stores
+it here for us to use as an object.
+
+We prefer to send back the accepted version of the object after we update the 
+state. It may be different (ie, have a unique id).
+
+With postman/vscode extension: make sure the content type is properly specified.
+
+It is a good idea to do some level of verification of the sent data (so discard extra
+properties, reject empty etc).
+
+Bad sends result in 400 Bad Request.
+Note that we do have to return in this case, even after we form the response.
+
+It is best to generate timestamps on the server instead of the browser (can't be
+trusted).
