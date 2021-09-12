@@ -5,7 +5,7 @@ This project was created by answering the questions of `npm init`.
 
 It can be run using `npm start`, which we had to define ourselves as `node index.js`.
 
-The deployed version of the app can be viewed here: https://dashboard.heroku.com/apps/fsopen-notes-backend/activity/builds/2401da5f-d94b-42fe-974b-95ced6e58085
+The deployed version of the app can be viewed here: https://fsopen-notes-backend.herokuapp.com/
 
 The github page for the app: https://github.com/jackcasey067/fullstackopen-notes-backend
 
