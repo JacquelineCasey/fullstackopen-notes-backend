@@ -289,6 +289,9 @@ We could also do this instead, but it is a bit hamfisted:
 
 Make sure to `.gitignore` `.env` files.
 
+PS: Remember to tell Heroku about your new environment variables. We do not add
+them to source control.
+
 ## A note on testing
 
 Our author argues that it is best to test the backend first all on its own (via
