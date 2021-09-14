@@ -303,3 +303,25 @@ time.
 - GET all notes: check backend, check frontend + backend.
 - POST: backend, frontend + backend  
 - etc...
+
+## Error handling
+
+Use `.catch(error => ...)` blocks to handle situations where promises are rejected.
+You can delegate to error handling middleware with `next(error)`. When you call
+`next()`, control goes to the next (matching) route or middleware. When you call
+`next(error)`, control goes to the next error handling middleware, which express
+identifies as middleware that takes four arguments (error, request, result, next).
+Have this middleware call `next(error)` on stuff it can't handle, delegating to
+the express default error handler. Also, put the middleware at the end so that
+`next(error)` in routes can find it.
+
+## Deleting Elemements in the database
+
+Use `[SomeModel].findByIdAndRemove`.
+
+## Toggling the Importance of elements
+
+Use `[SomeModel].findByIdAndUpdate`.
+- Note that it sends a javascript object, not a mongoose model object.
+- Also pass in the option `{new: true}`. Usually, mongoose passes the old replaced
+  object in the callback, but now it will send the newly created object.
