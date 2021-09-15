@@ -325,3 +325,31 @@ Use `[SomeModel].findByIdAndUpdate`.
 - Note that it sends a javascript object, not a mongoose model object.
 - Also pass in the option `{new: true}`. Usually, mongoose passes the old replaced
   object in the callback, but now it will send the newly created object.
+
+## Validation
+
+Let's use Mongoose's validation functionality instead of constantly using our
+own.
+
+https://mongoosejs.com/docs/validation.html
+
+See the updated `noteSchema`, which now includes rules on validation.
+
+There are built in validators, but we can also add custom validators if needed.
+
+## Promise chaining
+
+You can chain `.then()`'s together. The return of each inner function becomes the
+argument in the next function. We actually already did this in the notesService
+file, but it was hidden behind a function layer.
+
+## Remember to set env variables for Heroku
+
+I personally like to use the web client, but the author says you can also use
+`heroku config:set ENV_VAR_NAME='value'`
+
+## Linting
+`npm install eslint --save-dev`
+`node_modules/.bin/eslint --init`
+`node_modules/.bin/eslint .` as a script in `package.json`
+`build` in `.eslintignore`

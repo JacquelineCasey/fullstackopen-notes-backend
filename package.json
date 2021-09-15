@@ -9,7 +9,8 @@
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "build:ui": "rm -rf build && cd ../../Part2/part2 && npm run build && cp -r build ../../Part3/backend",
     "deploy": "git push",
-    "deploy:full": "npm run build:ui && git add . && git commit -m \"deployed app automatically via npm run deploy:full\" && npm run deploy"
+    "deploy:full": "npm run build:ui && git add . && git commit -m \"deployed app automatically via npm run deploy:full\" && npm run deploy",
+    "lint": "eslint ."
   },
   "author": "Jack Casey",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "mongoose": "^6.0.5"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "nodemon": "^2.0.12"
   }
 }

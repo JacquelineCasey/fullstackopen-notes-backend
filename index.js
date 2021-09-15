@@ -12,7 +12,7 @@ app.use(express.json()); // We will need this json parser later.
 
 /* Express now checks build/ for matching files to serve first. Navigating to
  * the homepage serves index.html, and the entire frontend with it. */
-app.use(express.static('build')); 
+app.use(express.static('build'));
 
 app.use(cors()); // We want to allow for cross origin resource sharing. ()
 
@@ -31,7 +31,7 @@ app.use(requestLogger);
 app.get('/', (request, response) => {
     response.send('<h1>It seems we could not find the UI...</h1>');
 });
-  
+
 // Handle GET requests sent to '/api/notes'
 app.get('/api/notes', (request, response) => {
     Note.find({}).then(notes => {
@@ -49,49 +49,51 @@ app.get('/api/notes/:id', (request, response, next) => { // Accept next as a par
                 response.status(404).end(); // Not Found
         })
         .catch(error => next(error)); // Delegate to middleware to handle errors.
-        /* Calling next() without a parameter ==> move on to the next route / middleware 
-         * Calling next() with a parameter ==> execution goes to the error handler middleware. */
+    /* Calling next() without a parameter ==> move on to the next route / middleware
+     * Calling next() with a parameter ==> execution goes to the error handler middleware. */
 });
 
 // Handle DELETE request sent to '/api/notes/#'
-app.delete('/api/notes/:id', (request, response) => {
+app.delete('/api/notes/:id', (request, response, next) => {
     Note.findByIdAndRemove(request.params.id)
-        // We could use result to determine if something was actually deleted, if necessary.
-        .then(result => { // Success = deleting a note that exists AND deleting one that does not.
+        // We could use result (callback param) to determine if something was actually deleted, if necessary.
+        .then(() => { // Success = deleting a note that exists AND deleting one that does not.
             response.status(204).end(); // No Content
         })
         .catch(error => next(error));
 });
 
 // Handle POST request sent to `api/notes`
-app.post('/api/notes', (request, response) => {
+app.post('/api/notes', (request, response, next) => {
     const body = request.body;
 
     if (body.content === undefined) {
         return response.status(400).json({error: 'content missing'});
     }
-  
+
     const note = new Note({
         content: body.content,
         important: body.important || false,
         date: new Date(),
     });
-  
-    note.save().then(savedNote => {
-        response.json(savedNote);
-    });
+
+    note.save()
+        .then(savedNote => {
+            response.json(savedNote);
+        })
+        .catch(error => next(error));
 });
 
 // Handle PUT requests sent to api/notes/# (Replacing the note there)
 app.put('/api/notes/:id', (request, response, next) => {
     const body = request.body;
-  
+
     const note = {
         content: body.content,
         important: body.important,
     };
-  
-    Note.findByIdAndUpdate(request.params.id, note, { new: true })
+
+    Note.findByIdAndUpdate(request.params.id, note, {new: true})
         .then(updatedNote => {
             response.json(updatedNote);
         })
@@ -101,22 +103,23 @@ app.put('/api/notes/:id', (request, response, next) => {
 
 // More middleware, only fires if none of the above routes fire. Ignores next()
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' });
+    response.status(404).send({error: 'unknown endpoint'});
 };
-  
+
 app.use(unknownEndpoint);
 
 /* 4 parameters ==> Express knows this is an error handler. */
 const errorHandler = (error, request, response, next) => {
     console.error(error.message);
-  
-    if (error.name === 'CastError') {
+
+    if (error.name === 'CastError')
         return response.status(400).send({error: 'malformatted id'});
-    } 
-  
+    else if (error.name === 'ValidationError')
+        return response.status(400).send({error: error.message});
+
     next(error); // Go to default express error handling.
 };
-  
+
 // this has to be the last loaded middleware (after routes), otherwise next(error) won't find it.
 app.use(errorHandler);
 
@@ -127,8 +130,8 @@ app.use(errorHandler);
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-    
+    console.log(`Server running on port ${PORT}`);
+
     console.log('Test Links: ');
     console.log('http://localhost:3001');
     console.log('http://localhost:3001/api/notes');
