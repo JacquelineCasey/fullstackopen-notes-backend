@@ -1,5 +1,6 @@
 /* Control starts here, as defined in package.json */
 const http = require('http'); // We still use require instead of ES6 modules on server side.
+const logger = require('./utils/logger');
 
 // const app = http.createServer((request, response) => {
 //     response.writeHead(200, {'Content-Type': 'text/plain'});
@@ -34,5 +35,5 @@ const app = http.createServer((request, response) => {
 
 const PORT = 3001;
 app.listen(PORT);
-console.log(`Server running on port ${PORT}`);
-console.log('Navigate to http://localhost:3001 to view.');
+logger.info(`Server running on port ${PORT}`);
+logger.info('Navigate to http://localhost:3001 to view.');

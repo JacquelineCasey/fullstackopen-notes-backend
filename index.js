@@ -2,6 +2,7 @@
 const cors = require('cors');
 require('dotenv').config(); // Puts env variables in process.env
 const express = require('express'); // Imports may be objects or just functions.
+const logger = require('./utils/logger');
 const Note = require('./models/note');
 
 
@@ -17,10 +18,10 @@ app.use(express.static('build'));
 app.use(cors()); // We want to allow for cross origin resource sharing. ()
 
 const requestLogger = (request, response, next) => {
-    console.log('Method:', request.method);
-    console.log('Path:  ', request.path);
-    console.log('Body:  ', request.body); // From json-parser
-    console.log('---');
+    logger.info('Method:', request.method);
+    logger.info('Path:  ', request.path);
+    logger.info('Body:  ', request.body); // From json-parser
+    logger.info('---');
     next();
 };
 
@@ -110,7 +111,7 @@ app.use(unknownEndpoint);
 
 /* 4 parameters ==> Express knows this is an error handler. */
 const errorHandler = (error, request, response, next) => {
-    console.error(error.message);
+    logger.error(error.message);
 
     if (error.name === 'CastError')
         return response.status(400).send({error: 'malformatted id'});
@@ -130,10 +131,10 @@ app.use(errorHandler);
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    logger.info(`Server running on port ${PORT}`);
 
-    console.log('Test Links: ');
-    console.log('http://localhost:3001');
-    console.log('http://localhost:3001/api/notes');
-    console.log('http://localhost:3001/api/notes/1');
+    logger.info('Test Links: ');
+    logger.info('http://localhost:3001');
+    logger.info('http://localhost:3001/api/notes');
+    logger.info('http://localhost:3001/api/notes/1');
 });

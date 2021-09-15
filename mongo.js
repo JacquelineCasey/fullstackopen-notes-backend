@@ -1,8 +1,10 @@
 
+const logger = require('./utils/logger');
 const mongoose = require('mongoose');
 
+
 if (process.argv.length < 3) {
-    console.log('Please proved the password as an argument: node mongo.js <password>');
+    logger.info('Please proved the password as an argument: node mongo.js <password>');
     process.exit(1);
 }
 
@@ -31,13 +33,13 @@ const Note = mongoose.model('Note', noteSchema);
 
 // // Send that instance.
 // note.save().then(result => {
-//     console.log('note saved!');
+//     info('note saved!');
 //     mongoose.connection.close();
 // });
 
 Note.find({important: true}).then(result => {
     result.forEach(note => {
-        console.log(note);
+        logger.info(note);
     });
     mongoose.connection.close();
 });
