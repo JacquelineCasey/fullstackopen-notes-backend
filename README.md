@@ -358,3 +358,32 @@ I personally like to use the web client, but the author says you can also use
 (https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing)
 
 - Add a folder `utils`, and make sure all logging goes through `utils/logger.js`.
+- Simplify `index.js` greatly. It imports the application from `app.js`, and starts the server.
+- `utils/config.js` handles environment variables.
+- We move route handlers (known as controllers) to `controllers/notes.js`. If we
+  add more for different subsets of routes (ie, `persons`), that would get its own file.
+  - We actually use a `Router` object this time, instead of assigning routes to the
+    whole application. This is exported. This incidentally allows shortening the paths.
+    - The Router is middleware that acts like a mini application. They are used to
+      define related routes, like those that start with `api/notes`
+- Add a file `app.js` that creates the actual app. It then accepts the Router for notes.
+  This really just creates the database connection (must be done in one place), and
+  setups up middleware (and the Router which is middleware) in the right order.
+- `utils/middleware.js` contains all the middleware.
+
+The final structure looks like this. Control starts at `index.js`:
+
+├── index.js
+├── app.js
+├── build
+│   └── ...
+├── controllers
+│   └── notes.js
+├── models
+│   └── note.js
+├── package-lock.json
+├── package.json
+├── utils
+│   ├── config.js
+│   ├── logger.js
+│   └── middleware.js 

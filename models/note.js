@@ -1,19 +1,6 @@
 
-require('dotenv').config(); // Technically a double import, but the second one does nothing!
 const mongoose = require('mongoose');
-const logger = require('./utils/logger');
 
-const url = process.env.MONGODB_URI;
-
-logger.info('connecting to', url);
-
-mongoose.connect(url)
-    .then(() => { // Accepts result
-        logger.info('connected to MongoDB');
-    })
-    .catch((error) => {
-        logger.info('error connecting to MongoDB:', error.message);
-    });
 
 const noteSchema = new mongoose.Schema({
     content: {
