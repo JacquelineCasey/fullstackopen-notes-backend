@@ -353,3 +353,8 @@ I personally like to use the web client, but the author says you can also use
 `node_modules/.bin/eslint --init`
 `node_modules/.bin/eslint .` as a script in `package.json`
 `build` in `.eslintignore`
+
+## Directory Structure
+(https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing)
+
+- Add a folder `utils`, and make sure all logging goes through `utils/logger.js`.
