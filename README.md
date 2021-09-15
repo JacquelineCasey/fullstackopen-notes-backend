@@ -371,6 +371,10 @@ I personally like to use the web client, but the author says you can also use
   setups up middleware (and the Router which is middleware) in the right order.
 - `utils/middleware.js` contains all the middleware.
 
+PS: We now use import `http` to run the server instead of Express directly.
+https://stackoverflow.com/questions/17696801/express-js-app-listen-vs-server-listen
+Supposedly, there isn't much of a difference.
+
 The final structure looks like this. Control starts at `index.js`:
 
 ├── index.js

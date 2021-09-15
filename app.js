@@ -1,7 +1,6 @@
 
 const config = require('./utils/config');
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const notesRouter = require('./controllers/notes');
 const middleware = require('./utils/middleware');
@@ -19,6 +18,8 @@ mongoose.connect(config.MONGODB_URI)
         logger.error('error connecting to MongoDB:', error.message);
     });
 
+
+const app = express();
 
 app.use(cors());
 app.use(express.static('build'));
