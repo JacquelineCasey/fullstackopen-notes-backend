@@ -428,3 +428,19 @@ When run, jest finds all of the files with `.test.`. We use the conventional
 `.test.js` extension.
 
 Now we add `average.test.js` as a seperate file.
+
+## Integration Testing
+(https://fullstackopen.com/en/part4/testing_the_backend)
+
+We don't yet have the need to unit test the parts of the backend, but integration
+testing is needed. We could use `mongo-mock` to create a mock database.
+
+## Test Environment
+
+It is convention to define the environment in the `NODE_ENV` environment variable.
+We update our scripts to have the right environments when they run.
+- We have 'production', 'test', and 'development'.
+- We also prevent jest from running tests in parrallel using `--runInBand`
+
+This method of defining environment variables before the command does not work in
+windows, so we can install `cross-env` and preprend that command to the scripts.
