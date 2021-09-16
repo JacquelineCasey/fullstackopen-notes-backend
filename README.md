@@ -444,3 +444,22 @@ We update our scripts to have the right environments when they run.
 
 This method of defining environment variables before the command does not work in
 windows, so we can install `cross-env` and preprend that command to the scripts.
+
+In `config.js`, we now load in a MONGODB_URL dependent on the NODE_ENV
+
+## Supertest
+
+`npm install --save-dev supertest`
+
+This allows us to use our express app `app` as an api to test. It also provides
+functions to probe to response of the api.
+
+## Running single tests
+
+You can temporarily put `test.only(...)` if you only want to see the output of 
+one test.
+
+You can specify a single file if you only want to see those: `npm test -- tests/note_api.test.js`
+
+You can also use the -t flag to capture tests by name: `npm test -- -t 'notes'` runs all tests
+containing the word 'notes'.
