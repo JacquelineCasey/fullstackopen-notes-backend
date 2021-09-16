@@ -478,3 +478,15 @@ ready.
 async functions actually return promises, even if it doesn't look like it. That
 means we have to await them from other async functions, or attach traditional
 `.then()` handlers.
+
+## Getting Rid of Try Catch
+
+The cost of switching to async await is try catch blocks everywhere. In routes,
+they look very similar, and we can actually use a library to perform the common
+logic whenever an error comes up.
+
+`npm install express-async-errors` will call `next(exception)` whenever our
+async routes throw exceptions.
+
+Like `dotenv`, we do not assign the exports of the library to a variable. We
+just `require` it once. Use it in app.
