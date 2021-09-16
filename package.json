@@ -16,12 +16,12 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.5"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "jest": "^27.2.0",
     "nodemon": "^2.0.12"
