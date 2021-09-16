@@ -391,3 +391,40 @@ The final structure looks like this. Control starts at `index.js`:
 │   ├── config.js
 │   ├── logger.js
 │   └── middleware.js 
+
+## Unit Testing
+(https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing#testing-node-applications)
+
+Since the logic of our application is so simple, we will practice writing tests
+on `utils/for_testing.js`.
+
+We will be using `jest` for testing. It is a lot like `Mocha`, another popular
+testing library.
+
+Install jest as a dev-dependency.
+
+Add this script to `package.json`: `"test": "jest --verbose"`
+
+You also need to specify to jest that the execution environment is node.
+```
+"jest": {
+  "testEnvironment": "node"
+}
+```
+
+You can alternatively add a file `jest.config.js`
+```
+module.exports = {
+  testEnvironment: 'node',
+};
+```
+
+Add `palindrome.test.js` in a new `tests` directory.
+
+ESLint gets mad about the globals that `jest` lets us use, so add this line to
+`.eslintrc.js`: `"jest": true` in the `env` object.
+
+When run, jest finds all of the files with `.test.`. We use the conventional 
+`.test.js` extension.
+
+Now we add `average.test.js` as a seperate file.
