@@ -21,6 +21,7 @@
     "mongoose": "^6.0.5"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "jest": "^27.2.0",
     "nodemon": "^2.0.12"
