@@ -463,3 +463,18 @@ You can specify a single file if you only want to see those: `npm test -- tests/
 
 You can also use the -t flag to capture tests by name: `npm test -- -t 'notes'` runs all tests
 containing the word 'notes'.
+
+## Async Await
+
+These kinda remind me of Haskell's do notation: taking something that was chaining
+lambda call after lambda call and wrapping it in a clean imperative syntax. Under
+the hood though, we are still chaining promises / functions.
+
+Mark a function async in order to use await inside of it. Awaiting a promise causes
+use to accept the value if it is ready, or come back later if it is not. We are NOT
+blocking, the browser / node will try to do other stuff while the value is not
+ready.  
+
+async functions actually return promises, even if it doesn't look like it. That
+means we have to await them from other async functions, or attach traditional
+`.then()` handlers.
