@@ -490,3 +490,12 @@ async routes throw exceptions.
 
 Like `dotenv`, we do not assign the exports of the library to a variable. We
 just `require` it once. Use it in app.
+
+## Promise.all
+
+We want to use `forEach(aysnc () => {... await something...})`, but this is not
+in itself an awaited promise. Instead, `map` your collection to a collection of
+promises / async functions, and `await Promise.all(thatPromiseArray)`.
+
+These promises will be executed in any order (can receive parallelization benefits).
+If we want them to go in a particular order, us a for loop instead.
