@@ -9,9 +9,12 @@ const logger = require('./utils/logger');
 const mongoose = require('mongoose');
 
 
+const app = express();
+
 logger.info('connecting to', config.MONGODB_URI);
 
-mongoose.connect(config.MONGODB_URI)
+// app.connection is used to confirm if the app is connected (ex, for testing).
+app.connection = mongoose.connect(config.MONGODB_URI)
     .then(() => {
         logger.info('connected to MongoDB');
     })
@@ -19,8 +22,6 @@ mongoose.connect(config.MONGODB_URI)
         logger.error('error connecting to MongoDB:', error.message);
     });
 
-
-const app = express();
 
 app.use(cors());
 app.use(express.static('build'));

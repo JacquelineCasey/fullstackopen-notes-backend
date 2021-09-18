@@ -9,6 +9,14 @@ const Note = require('../models/note');
 
 const api = supertest(app);
 
+/* https://stackoverflow.com/questions/42186663/nodejs-wait-for-mongodb-connection-to-be-made-before-creating-http-server
+ * The first test is not responsible for setting up the connection. Before this,
+ * it would sometimes timeout in bad wifi, as it waited for the connection to be
+ * formed. */
+beforeAll(async () => {
+    await app.connection;
+});
+
 beforeEach(async () => {
     await Note.deleteMany({});
     await Note.insertMany(helper.initialNotes);
@@ -59,7 +67,7 @@ describe('viewing a specific note', () => {
     test('fails with statuscode 404 if note does not exist', async () => {
         const validNonexistingId = await helper.nonExistingId();
 
-        console.log(validNonexistingId);
+        // console.log(validNonexistingId);
 
         await api
             .get(`/api/notes/${validNonexistingId}`)
