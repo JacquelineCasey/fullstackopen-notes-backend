@@ -1,5 +1,17 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxNDZhMjY0OGFkNzE4MzY4ODM4YWQyMiIsImlhdCI6MTYzMjA3OTA2OH0.zXi49njUQaIjJDI8wABhdqNLmVd0yD1o--ih_nHXFns
+
+{
+    "content": "A second note by the charming root user.",
+    "important": true,
+    "userId": "6146a2648ad718368838ad22"
+}
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer WRONGGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxNDZhMjY0OGFkNzE4MzY4ODM4YWQyMiIsImlhdCI6MTYzMjA3OTA2OH0.zXi49njUQaIjJDI8wABhdqNLmVd0yD1o--ih_nHXFns
 
 {
     "content": "A second note by the charming root user.",

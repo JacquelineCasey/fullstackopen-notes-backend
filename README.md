@@ -540,3 +540,59 @@ note to include the username and name of the user. Mongo itself does not know
 what an object id is referencing (I think its just a fancy int). Mongoose knows
 where to look up that id through the schema.
 
+## Token Based Authentification
+(https://fullstackopen.com/en/part4/token_authentication)
+
+- User fills out form with username and password; Presses submit button.
+  - POST /api/login {username, password}
+- Backend Generates TOKEN that identifies user
+  - TOKEN returned to user
+- Browser saves token (perhaps as React State...)
+
+- User does something (ex: creates a note)
+  - POST /api/notes {content}, TOKEN in Header
+- Backend identifies user from the token
+  - 201 Created
+
+The token is digitally signed, so it is cryptographically secure.
+
+`npm install jsonwebtoken`
+
+We are gonna need a SECRET in .env, so you can run
+`node -e "console.log(require('crypto').randomBytes(256).toString('base64'))"`
+
+## Limiting New Notes to Logged In Users
+
+There are several ways to send the token to the server. We will use the
+`Authorization` header.
+- It also tells us which authorization scheme it is using (we might accept multiple)
+  - Here we use the Bearer scheme. The authorization header might look like
+    - `Bearer eyJhbGciOiJIUzI1NiIsInR5c2VybmFtZSI6Im1sdXVra2FpIiwiaW`
+
+
+"If the application has multiple interfaces requiring identification, JWT's validation should be separated into its own middleware. Some existing library like express-jwt could also be used."
+
+## Problems with tokens
+
+Once the token is sent, its out there, and we have to trust anyone with the token.
+We can try to solve this by limiting the validity period of the token.
+
+Now if the token gets into the wrong hands, or the user rights need to be revoked,
+the token is useable for only a limited time.
+Of course, this is a pain in the ass for users.
+(We do this here)
+
+We could alternatively save token info to the backend database, and check in each
+api request if the token exists and has access rights. Access rights can be
+revoked at anytime. This scheme is called Server Side Session
+- But code is more complex
+- And Slower
+  - This might be done for faster but weaker databases, like Redis (key value database).
+  - We might then use cookies instead of an authorization header, and they are just
+    random strings unrelated to the user name or id.
+
+## HTTPS
+
+Usernames and passwords must always be sent of HTTPS for safety. We could use
+node https to make this happen. Heroku has us covered already though: it routes
+all traffic between the browser and the server through https automatically.
