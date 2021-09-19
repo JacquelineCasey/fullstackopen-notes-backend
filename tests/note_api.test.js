@@ -89,6 +89,7 @@ describe('viewing a specific note', () => {
 });
 
 describe('addition of a new note', () => {
+
     test('succeeds with valid data', async () => {
         const newNote = {
             content: 'async/await simplifies making async calls',
@@ -98,6 +99,7 @@ describe('addition of a new note', () => {
 
         await api
             .post('/api/notes')
+            .set('Authorization', `bearer ${await helper.getInitialUserToken(api)}`)
             .send(newNote)
             .expect(200)
             .expect('Content-Type', /application\/json/);
@@ -120,6 +122,7 @@ describe('addition of a new note', () => {
 
         await api
             .post('/api/notes')
+            .set('Authorization', `bearer ${await helper.getInitialUserToken(api)}`)
             .send(newNote)
             .expect(400);
 

@@ -57,8 +57,16 @@ const usersInDb = async () => {
     return users.map(u => u.toJSON());
 };
 
+const getInitialUserToken = async (api) => {
+    const response = await api
+        .post('/api/login')
+        .send({username: 'noteTaker22', password: 'password'});
+
+    return response.body.token;
+};
+
 
 
 module.exports = {
-    nonExistingId, notesInDb, usersInDb, setupCollections
+    nonExistingId, notesInDb, usersInDb, setupCollections, getInitialUserToken
 };
