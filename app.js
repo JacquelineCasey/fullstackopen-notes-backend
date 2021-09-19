@@ -14,14 +14,15 @@ const app = express();
 
 logger.info('connecting to', config.MONGODB_URI);
 
-// app.connection is used to confirm if the app is connected (ex, for testing).
-app.connection = mongoose.connect(config.MONGODB_URI)
-    .then(() => {
+// added this so users can await the creation of the connection (good for tests).
+app.connectToDatabase = async () => {
+    try {
+        await mongoose.connect(config.MONGODB_URI);
         logger.info('connected to MongoDB');
-    })
-    .catch((error) => {
+    } catch (error) {
         logger.error('error connecting to MongoDB:', error.message);
-    });
+    }
+};
 
 
 app.use(cors());

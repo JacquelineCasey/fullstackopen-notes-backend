@@ -2,20 +2,22 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 
-const app = require('../app');
 const helper = require('./test_helper');
 const Note = require('../models/note');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const app = require('../app'); // Prevents mongoose connection being problematic when we only run other files
+
 
 const api = supertest(app);
 
 /* https://stackoverflow.com/questions/42186663/nodejs-wait-for-mongodb-connection-to-be-made-before-creating-http-server
  * The first test is not responsible for setting up the connection. Before this,
  * it would sometimes timeout in bad wifi, as it waited for the connection to be
- * formed. */
+ * formed. Also, this prevents forming a connection even when no tests are used
+ * in the file (that connection often would not close). */
 beforeAll(async () => {
-    await app.connection;
+    await app.connectToDatabase();
 });
 
 beforeEach(async () => {
